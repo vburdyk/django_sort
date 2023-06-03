@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container">
+        <form method="POST" action="{% url 'category_page' slug=category.slug %}">
+            {% csrf_token %}
+            <select class="form-select" aria-label="Default select example" name="sort_by">
+                <option selected>Without sorting</option>
+                <option value="price high-low">Price: high to low</option>
+                <option value="price low-high">Price: low to high</option>
+                <option value="date high-low">Date: high to low</option>
+                <option value="date low-high">Date: low to high</option>
+            </select>
+            <button type="submit" class="btn btn-primary" style="margin: 10px">Apply</button>
+        </form>
         <h1 class="text-center">{{ category.title }}</h1>
         <div class="products-list">
             {% for product in products %}
@@ -9,5 +20,4 @@
         </div>
 
     </div>
-
 {% endblock %}
